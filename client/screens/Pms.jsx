@@ -27,7 +27,7 @@ const Pms = ({ navigation }) => {
 
   const [inputMoisture, setInputMoisture] = useState(0);
 
-  const url = "http://192.168.0.2:4000/api/v1/";
+  const url = "http://192.168.43.75:4000/api/v1/";
 
   const setValues = (data) => {
     setDate(data[0]);
