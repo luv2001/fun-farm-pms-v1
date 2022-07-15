@@ -1,7 +1,6 @@
 import express from "express";
 import cors from "cors";
 import { config } from "dotenv";
-import socket from "socket.io";
 
 config({ path: "./config/config.env" });
 

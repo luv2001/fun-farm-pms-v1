@@ -15,23 +15,17 @@ const pmsSchema = new mongoose.Schema({
     required: [true, "Please provide Moisture"],
   },
 
-  pH: {
+  waterLevel: {
     type: Number,
-    default: 7.0,
-    required: [true, "Please provide pH"],
-  },
-  TDS: {
-    type: Number,
-    default: 10.0,
-    required: [true, "Please provide TDS"],
-  },
-  DLI: {
-    type: Number,
-    default: 10.0,
-    required: [true, "Please provide DLI"],
+    default: 75,
+    // required: [true, "Please provide Water Level"],
   },
 
-  // TODO : One More Field Water Level
+  LUX: {
+    type: Number,
+    default: 10,
+    // required: [true, "Please provide Water Level"],
+  },
 });
 
 autoIncrement.initialize(mongoose.connection);

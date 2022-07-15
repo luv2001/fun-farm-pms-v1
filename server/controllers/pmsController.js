@@ -1,15 +1,18 @@
 import { pmsModel } from "../models/pmsModel.js";
 
+// TODO : Replacing This trycatch with catchAsyncErrors
+// TODO : Replacing request responce with Errorhandling(code , message)
+// TODO : Implimenting res status code with comments
+// TODO : res status code built in functions in utils or any other using OOPS
+
 export const getAllData = async (req, res) => {
   try {
     const data = await pmsModel.find();
-
     res.json({
       success: true,
-      data: data,
+      data,
     });
   } catch (error) {
-    console.log(error);
     res.json({
       success: false,
       message: error.message,
@@ -17,44 +20,15 @@ export const getAllData = async (req, res) => {
   }
 };
 
+//TODO : (Simplicity) Rather implment charts on frount end using all data
 export const getMoistureTime = async (req, res) => {
   try {
-    const data = await pmsModel.find();
-
-    //create new array of data.moisture element
-    const moistureArray = data.map((item) => item.moisture);
-
-    //create Time array using time modified alignItems
-    const timeArray = [];
-    data.map((item) => {
-      const time = new Date(item.date).toLocaleTimeString(undefined, {
-        hour12: false,
-        timeZone: "Asia/Kolkata",
-      });
-      timeArray.push(time);
-    });
-
-    const graphData = [];
-
-    data.map((item) => {
-      const time = new Date(item.date).toLocaleTimeString(undefined, {
-        hour12: false,
-        timeZone: "Asia/Kolkata",
-      });
-      const moisture = item.moisture;
-      const moistureTimeObject = {
-        moisture: moisture,
-        time: time,
-      };
-      graphData.push(moistureTimeObject);
-    });
-
+    const { data } = await pmsModel.find();
     res.json({
       success: true,
-      data: graphData,
+      data,
     });
   } catch (error) {
-    console.log(error);
     res.json({
       success: false,
       message: error.message,
@@ -62,7 +36,7 @@ export const getMoistureTime = async (req, res) => {
   }
 };
 
-export const getLatestData = async (req, res) => {
+export const getLatestPMSData = async (req, res) => {
   try {
     const data = await pmsModel.find();
     const productsCount = await pmsModel.countDocuments();
@@ -75,59 +49,30 @@ export const getLatestData = async (req, res) => {
       });
     }
 
-    const moisture = latestData.moisture;
-    const date = latestData.date;
-    const newDate = new Date(date).toLocaleString(undefined, {
-      timeZone: "Asia/Kolkata",
-    });
-    const time = new Date(date).toLocaleTimeString(undefined, {
-      hour12: false,
-      timeZone: "Asia/Kolkata",
-    });
-    const formatingdate = new Date(date);
-    const year = formatingdate.getFullYear();
-    const month = date.getMonth() + 1;
-    const dt = date.getDate();
-    const formattedDate = dt + "/" + month + "/" + year;
-
-    // TODO : This is Hard Coded pH TDS DLI
-    const pH = latestData.pH;
-    const TDS = latestData.TDS;
-    const DLI = latestData.DLI;
-
-    const newFormattedData = [formattedDate, time, moisture, pH, TDS, DLI];
-
-    res.json(newFormattedData);
+    res.json(latestData);
   } catch (error) {
-    console.log(error);
-    res.json({
+    res.status(500).json({
+      success: false,
       message: error.message,
     });
   }
 };
 
-export const createNewData = async (req, res) => {
-  const moisture = req.params.id;
+export const addPMSdataThroughUrl = async (req, res) => {
+  try {
+    const { moisture, waterLevel, LUX } = req.query;
 
-  const data = await pmsModel.create({
-    moisture,
-  });
+    const data = await pmsModel.create({
+      moisture,
+      waterLevel,
+      LUX,
+    });
 
-  res.json({
-    success: true,
-    data,
-  });
-};
-
-export const addThroughUrl = async (req, res) => {
-  const moisture = req.params.id;
-
-  const data = await pmsModel.create({
-    moisture,
-  });
-
-  res.json({
-    success: true,
-    data,
-  });
+    res.status(201).json(data);
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
 };

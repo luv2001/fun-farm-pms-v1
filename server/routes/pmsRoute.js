@@ -1,18 +1,17 @@
 import express from "express";
 import {
-  addThroughUrl,
+  addPMSdataThroughUrl,
   getAllData,
-  getLatestData,
+  getLatestPMSData,
   getMoistureTime,
 } from "../controllers/pmsController.js";
 
 const router = express.Router();
 
 router.route("/getAllData").get(getAllData);
-router.route("/getLatestData").get(getLatestData);
+router.route("/getLatestPMSdata").get(getLatestPMSData);
+router.route("/addPMSdataThroughUrl").get(addPMSdataThroughUrl);
 
-router.route("/addThroughUrl/:id").get(addThroughUrl);
-
-router.route("/getmoistureTime").get(getMoistureTime);
+// router.route("/getmoistureTime").get(getMoistureTime);
 
 export default router;
