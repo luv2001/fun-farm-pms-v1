@@ -49,7 +49,29 @@ export const getLatestPMSData = async (req, res) => {
       });
     }
 
-    res.json(latestData);
+    const time = new Date(latestData.date).toLocaleTimeString(undefined, {
+      hour12: false,
+      timeZone: "Asia/Kolkata",
+    });
+
+    // TODO : Implimenting Utils funtion for date and time
+
+    // Reusable Date and Time Component
+    const formatingdate = new Date(latestData.date);
+    const year = formatingdate.getFullYear();
+    const month = latestData.date.getMonth() + 1;
+    const dt = latestData.date.getDate();
+    const formattedDate = dt + "/" + month + "/" + year;
+
+    const latestDataFormatted = [
+      formattedDate,
+      time,
+      latestData.moisture,
+      latestData.waterLevel,
+      latestData.LUX,
+    ];
+
+    res.json(latestDataFormatted);
   } catch (error) {
     res.status(500).json({
       success: false,

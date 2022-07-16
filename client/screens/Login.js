@@ -44,8 +44,13 @@ const Login = ({ navigation }) => {
         <Text style={{ marginTop: 20, alignSelf: "center" }}>OR</Text>
 
         <TouchableOpacity
-          style={{ alignSelf: "center" }}
-          onPress={() => navigation.navigate("register")}
+          style={{
+            alignSelf: "center",
+            // backgroundColor: "black",
+            // height: 30,
+            // alignItems: "center",
+            // justifyContent: "center",
+          }}
         >
           <Text
             onPress={() => navigation.navigate("register")}
@@ -55,15 +60,12 @@ const Login = ({ navigation }) => {
           </Text>
         </TouchableOpacity>
 
-        <TouchableOpacity
-          style={{ alignSelf: "center" }}
-          onPress={() => navigation.navigate("register")}
-        >
+        <TouchableOpacity style={{ alignSelf: "center" }}>
           <Text
             onPress={() => navigation.navigate("home")}
             style={{ height: 30, margin: 20, color: "#16a0b2" }}
           >
-            Home
+            Home change
           </Text>
         </TouchableOpacity>
       </View>

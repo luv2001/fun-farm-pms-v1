@@ -21,31 +21,35 @@ const Pms = ({ navigation }) => {
   const [date, setDate] = useState("Loading ... ");
   const [time, setTime] = useState("Loading ...");
   const [moisture, setMoisture] = useState(0);
-  const [pH, setpH] = useState(0);
-  const [TDS, setTDS] = useState(0);
-  const [DLI, setDLI] = useState(0);
+  const [waterLevel, setWaterLevel] = useState(0);
+  const [LUX, setLUX] = useState(0);
 
   const [inputMoisture, setInputMoisture] = useState(0);
+  const [inputWaterLevel, setInputWaterLevel] = useState(0);
+  const [inputLUX, setInputLUX] = useState(0);
 
-  const url = "http://192.168.43.75:4000/api/v1/";
+  // const IP = "192.168.0.3";
+  // const url = `http://${IP}:4000/api/v1`; // Testing URL
+
+  const url = "https://fun-farmhouse.herokuapp.com/api/v1"; //Testing URL :: Deployed Backend
 
   const setValues = (data) => {
     setDate(data[0]);
     setTime(data[1]);
     setMoisture(data[2]);
-    setpH(data[3]);
-    setTDS(data[4]);
-    setDLI(data[5]);
+    setWaterLevel(data[3]);
+    setLUX(data[4]);
   };
 
   const handleUpdateData = async () => {
-    const { data } = await axios.get(`${url}/getLatestData`);
-
+    const { data } = await axios.get(`${url}/getLatestPMSdata`);
     setValues(data);
   };
 
-  const handleSendMoisture = async () => {
-    const { data } = await axios.get(`${url}/addThroughUrl/${inputMoisture}`);
+  const handleUpdatePMSData = async () => {
+    const { data } = await axios.get(
+      `${url}/addPMSdataThroughUrl?moisture=${inputMoisture}&waterLevel=${inputWaterLevel}&LUX=${inputLUX}`
+    );
   };
 
   const pmsData = [
@@ -66,18 +70,13 @@ const Pms = ({ navigation }) => {
     },
     {
       _id: 4,
-      keyword: "pH",
-      value: pH,
+      keyword: "waterLevel",
+      value: waterLevel,
     },
     {
       _id: 5,
-      keyword: "TDS",
-      value: TDS,
-    },
-    {
-      _id: 6,
-      keyword: "DLI",
-      value: DLI,
+      keyword: "LUX",
+      value: LUX,
     },
   ];
 
@@ -104,19 +103,31 @@ const Pms = ({ navigation }) => {
           alignSelf: "center",
           alignItems: "center",
           marginTop: 40,
+          marginBottom: 20,
           width: "70%",
         }}
       >
         <TextInput
+          // style={{ marginBottom: 30 }}
           placeholder="moisture"
           onChangeText={setInputMoisture}
         ></TextInput>
-        <Button
-          color={primaryColor}
-          title="Change Moisture"
-          onPress={() => handleSendMoisture()}
-        />
+        <TextInput
+          // style={{ marginBottom: 30 }}
+          placeholder="water Level"
+          onChangeText={setInputWaterLevel}
+        ></TextInput>
+        <TextInput
+          // style={{ marginBottom: 30 }}
+          placeholder="LUX"
+          onChangeText={setInputLUX}
+        ></TextInput>
       </View>
+      <Button
+        color={primaryColor}
+        title="Update"
+        onPress={() => handleUpdatePMSData()}
+      />
 
       <View
         style={{
@@ -139,7 +150,6 @@ const Pms = ({ navigation }) => {
             style={{
               flexDirection: "row",
               justifyContent: "center",
-              padding: 10,
             }}
           />
         </TouchableOpacity>

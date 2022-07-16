@@ -1,9 +1,14 @@
 import mongoose from "mongoose";
 
+// TODO : getting this URI from .env file
 const connectToDatabase = () => {
-  mongoose.connect(process.env.MONGO_URI).then((data) => {
-    console.log(`Connected to host ${data.connection.name}`);
-  });
+  mongoose
+    .connect(
+      "mongodb+srv://dbfun:dbfun@cluster0.bpixr.mongodb.net/?retryWrites=true&w=majority"
+    )
+    .then((data) => {
+      console.log(`Connected to host ${data.connection.name}`);
+    });
 };
 
 export default connectToDatabase;
