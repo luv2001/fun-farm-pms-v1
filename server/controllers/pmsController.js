@@ -24,6 +24,7 @@ export const getAllData = async (req, res) => {
 export const getMoistureTime = async (req, res) => {
   try {
     const { data } = await pmsModel.find();
+
     res.json({
       success: true,
       data,

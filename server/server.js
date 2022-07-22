@@ -5,6 +5,7 @@ import { config } from "dotenv";
 config({ path: "./config/config.env" });
 
 import app from "./app.js";
+
 import connectToDatabase from "./config/database.js";
 
 connectToDatabase();
