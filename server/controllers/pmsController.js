@@ -1,3 +1,4 @@
+import catchAsyncError from "../middleware/catchAsyncError.js";
 import { pmsModel } from "../models/pmsModel.js";
 
 // TODO : Replacing This trycatch with catchAsyncErrors
@@ -7,7 +8,11 @@ import { pmsModel } from "../models/pmsModel.js";
 
 export const getAllData = async (req, res) => {
   try {
-    const data = await pmsModel.find();
+    const { id } = req.query;
+
+    const data = await pmsModel.find({
+      user: id,
+    });
     res.json({
       success: true,
       data,
@@ -39,8 +44,14 @@ export const getMoistureTime = async (req, res) => {
 
 export const getLatestPMSData = async (req, res) => {
   try {
-    const data = await pmsModel.find();
-    const productsCount = await pmsModel.countDocuments();
+    const { id } = req.query;
+
+    const data = await pmsModel.find({
+      user: id,
+    });
+    const productsCount = await pmsModel.countDocuments({
+      user: id,
+    });
     const latestData = data[productsCount - 1];
 
     if (!latestData) {
@@ -81,21 +92,15 @@ export const getLatestPMSData = async (req, res) => {
   }
 };
 
-export const addPMSdataThroughUrl = async (req, res) => {
-  try {
-    const { moisture, waterLevel, LUX } = req.query;
+export const addPMSdataThroughUrl = catchAsyncError(async (req, res) => {
+  const { moisture, waterLevel, LUX, id } = req.query;
 
-    const data = await pmsModel.create({
-      moisture,
-      waterLevel,
-      LUX,
-    });
+  const data = await pmsModel.create({
+    moisture,
+    waterLevel,
+    LUX,
+    user: id,
+  });
 
-    res.status(201).json(data);
-  } catch (error) {
-    res.status(500).json({
-      success: false,
-      message: error.message,
-    });
-  }
-};
+  res.status(201).json(data);
+});

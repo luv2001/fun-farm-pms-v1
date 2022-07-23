@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-import autoIncrement from "mongoose-auto-increment";
 
 const pmsSchema = new mongoose.Schema({
   date: {
@@ -12,23 +11,23 @@ const pmsSchema = new mongoose.Schema({
 
   moisture: {
     type: Number,
-    required: [true, "Please provide Moisture"],
+    default: 0,
   },
 
   waterLevel: {
     type: Number,
-    default: 75,
-    // required: [true, "Please provide Water Level"],
+    default: 0,
   },
 
   LUX: {
     type: Number,
-    default: 10,
-    // required: [true, "Please provide Water Level"],
+    default: 0,
+  },
+
+  user: {
+    type: String,
+    required: [true, "Please provide User"],
   },
 });
-
-autoIncrement.initialize(mongoose.connection);
-pmsSchema.plugin(autoIncrement.plugin, "PMSModel");
 
 export const pmsModel = mongoose.model("PMSModel", pmsSchema);

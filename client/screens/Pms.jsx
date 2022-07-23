@@ -14,6 +14,12 @@ import PMSText from "../components/PMSText";
 import axios from "axios";
 
 const Pms = ({ navigation }) => {
+  // TODO : Impliment redux
+  // TODO : Implement asyncStorage
+
+  // Logged In User Id
+  const id = "62daccb734cfb32b26688bd6";
+
   const primaryColor = "#16a0b2";
   //API Calles for PMS
 
@@ -28,10 +34,10 @@ const Pms = ({ navigation }) => {
   const [inputWaterLevel, setInputWaterLevel] = useState(0);
   const [inputLUX, setInputLUX] = useState(0);
 
-  // const IP = "192.168.0.3";
-  // const url = `http://${IP}:4000/api/v1`; // Testing URL
+  // const IP = "192.168.0.5";
+  // const url = `http://${IP}:4000/api/v1/pms`; // Testing URL
 
-  const url = "https://fun-farmhouse.herokuapp.com/api/v1"; //Testing URL :: Deployed Backend
+  const url = "https://fun-farmhouse.herokuapp.com/api/v1/pms"; //Testing URL :: Deployed Backend
 
   const setValues = (data) => {
     setDate(data[0]);
@@ -42,9 +48,13 @@ const Pms = ({ navigation }) => {
   };
 
   const handleUpdateData = async () => {
-    const { data } = await axios.get(`${url}/getLatestPMSdata`);
+    const { data } = await axios.get(`${url}/getLatestPMSdata?id=${id}`);
     setValues(data);
   };
+
+  setInterval(() => {
+    handleUpdateData();
+  }, 1000);
 
   const handleUpdatePMSData = async () => {
     const { data } = await axios.get(
@@ -87,16 +97,16 @@ const Pms = ({ navigation }) => {
           <PMSText key={item._id} keyword={item.keyword} value={item.value} />
         );
       })}
-      <Button
+      {/* <Button
         color={primaryColor}
         title="click"
         onPress={() => handleUpdateData()}
       />
       <Text style={{ marginTop: 20 }}>
         Real Time Update Will be implimented
-      </Text>
+      </Text> */}
 
-      <View
+      {/* <View
         style={{
           flexDirection: "row",
           justifyContent: "space-around",
@@ -122,18 +132,18 @@ const Pms = ({ navigation }) => {
           placeholder="LUX"
           onChangeText={setInputLUX}
         ></TextInput>
-      </View>
-      <Button
+      </View> */}
+      {/* <Button
         color={primaryColor}
         title="Update"
         onPress={() => handleUpdatePMSData()}
-      />
+      /> */}
 
       <View
         style={{
           flexDirection: "row",
           justifyContent: "center",
-          marginTop: 260,
+          marginTop: 450,
         }}
       >
         <TouchableOpacity

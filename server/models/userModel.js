@@ -1,61 +1,43 @@
 import mongoose from "mongoose";
-// import validator from "validator";
-// import dotenv from "dotenv";
-// import crypto from "crypto";
+import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
 
-// import bcrypt from "bcryptjs";
-// import jwt from "jsonwebtoken";
+import { config } from "dotenv";
+
+config({ path: "../config/config.env" });
 
 const userSchema = new mongoose.Schema({
   name: {
     type: String,
-    required: [true, "Please provide product name"],
-    // maxLength: [30, "Cannot Exceed limit of 30 digits"],
-    // minLength: [1, "Cannot be less than 1 digit"],
+    required: true,
   },
-
   email: {
     type: String,
-    required: [true, "Please provide product email"],
+    required: true,
     unique: true,
-    // validator: [validator.isEmail, "Please provide valid email"],
   },
-
   password: {
     type: String,
-    required: [true, "Please provide product password"],
-    // minLength: [6, "Cannot be less than 6 digit"],
-    select: false,
+    required: true,
   },
-
-  ModelName: {
-    type: String,
-    default: "MODEL : 11011",
-  },
-
-  ModelId: {
-    type: String,
-    default: "629b03c22b77595eb5a67546",
-  },
-
-  //   avatar: {
-  //     public_id: {
-  //       type: String,
-  //       required: [true],
-  //     },
-  //     url: {
-  //       type: String,
-  //       required: [true],
-  //     },
-  //   },
-
-  //   role: {
-  //     type: String,
-  //     default: "user",
-  //   },
-
-  //   resetPasswordToken: String,
-  //   resetPasswordExpires: Date,
 });
 
-export const userModel = mongoose.model("Users", userSchema);
+userSchema.pre("save", async function (next) {
+  if (!this.isModified("password")) return next();
+
+  const salt = await bcrypt.genSalt(10);
+  this.password = await bcrypt.hash(this.password, salt);
+});
+
+userSchema.methods.getJWTtoken = function () {
+  const token = jwt.sign({ id: this._id }, process.env.JWT_SECRET, {
+    expiresIn: process.env.EXPIRESIN,
+  });
+  return token;
+};
+
+userSchema.methods.comparepassword = async function (password) {
+  return await bcrypt.compare(password, this.password);
+};
+const userModel = mongoose.models.User || mongoose.model("User", userSchema);
+export default userModel;

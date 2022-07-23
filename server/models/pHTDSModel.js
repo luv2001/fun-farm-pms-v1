@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-import autoIncrement from "mongoose-auto-increment";
 
 const phTDSSchema = new mongoose.Schema({
   date: {
@@ -14,9 +13,12 @@ const phTDSSchema = new mongoose.Schema({
     type: Number,
     default: 17,
   },
-});
 
-autoIncrement.initialize(mongoose.connection);
-phTDSSchema.plugin(autoIncrement.plugin, "phTDSModel");
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+    required: [true, "Please provide User"],
+  },
+});
 
 export const phTDSModel = mongoose.model("phTDSModel", phTDSSchema);
