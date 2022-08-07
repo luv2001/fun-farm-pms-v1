@@ -1,10 +1,16 @@
 import { View, Text, StyleSheet } from "react-native";
 import React from "react";
+import NutritionButton from "../components/NutritionButton";
 
 const Nutrition = () => {
   return (
     <View style={styles.container}>
-      <Text style={{ marginTop: 100 }}>Nutrition</Text>
+      <Text style={{ marginTop: 100, fontSize: 30, marginBottom: 40 }}>
+        Nutrition System
+      </Text>
+      <NutritionButton text="N" v1={20} v2={40} />
+      <NutritionButton text="P" v1={20} v2={40} />
+      <NutritionButton text="K" v1={20} v2={40} />
     </View>
   );
 };
@@ -14,7 +20,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#ffffff",
     flex: 1,
     alignItems: "center",
-    // justifyContent: "center",
   },
 
   input: {

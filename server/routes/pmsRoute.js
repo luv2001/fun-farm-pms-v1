@@ -1,16 +1,21 @@
 import express from "express";
 import {
-  addPMSdataThroughUrl,
-  getAllData,
-  getLatestPMSData,
-  getMoistureTime,
+  addpHTDSdataThroughUrl,
+  getAllpHTDSData,
+} from "../controllers/pHTdsController.js";
+import {
+  addMWLdataThroughUrl,
+  getAllMWLData,
+  getLatestMWLdata,
 } from "../controllers/pmsController.js";
-import { getLoggedInUser } from "../middleware/userAuth.js";
 
 const router = express.Router();
 
-router.route("/getAllData").get(getAllData);
-router.route("/getLatestPMSdata").get(getLatestPMSData);
-router.route("/addPMSdataThroughUrl").get(addPMSdataThroughUrl);
+router.route("/getAllMWLData").get(getAllMWLData);
+router.route("/getLatestMWLdata").get(getLatestMWLdata);
+router.route("/addMWLdataThroughUrl").get(addMWLdataThroughUrl);
+
+router.route("/getAllpHTDSData").get(getAllpHTDSData);
+router.route("/addpHTDSdataThroughUrl").post(addpHTDSdataThroughUrl);
 
 export default router;

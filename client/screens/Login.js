@@ -7,12 +7,39 @@ import {
 } from "react-native";
 import React, { useState } from "react";
 import { Button } from "react-native-paper";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import axios from "axios";
+import { useNavigation } from "@react-navigation/native";
 
-const Login = ({ navigation }) => {
+const Login = () => {
+  const IP = "192.168.0.5";
+  const url = `http://${IP}:4000/api/v1/user/`; // Testing URL
+
+  const navigation = useNavigation();
+
+  // const url = "https://fun-farmhouse.herokuapp.com/api/v1/user"; //Testing URL :: Deployed Backend
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleLogin = () => {};
+  const handleAsyncStorageUser = async (user) => {
+    await AsyncStorage.setItem("user", JSON.stringify(user));
+  };
+
+  const handleLogin = async () => {
+    const object = {
+      email: email,
+
+      password: password,
+    };
+
+    const { data } = await axios.post(`${url}/signin`, object);
+
+    if (data.status) {
+      handleAsyncStorageUser(data.user);
+      navigation.navigate("home");
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -33,11 +60,7 @@ const Login = ({ navigation }) => {
           value={password}
           onChangeText={setPassword}
         />
-        <Button
-          disabled={!email || !password}
-          style={styles.btn}
-          onPress={handleLogin}
-        >
+        <Button style={styles.btn} onPress={handleLogin}>
           <Text style={{ color: "#fff" }}>Login</Text>
         </Button>
 

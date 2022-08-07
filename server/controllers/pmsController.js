@@ -6,7 +6,7 @@ import { pmsModel } from "../models/pmsModel.js";
 // TODO : Implimenting res status code with comments
 // TODO : res status code built in functions in utils or any other using OOPS
 
-export const getAllData = async (req, res) => {
+export const getAllMWLData = async (req, res) => {
   try {
     const { id } = req.query;
 
@@ -42,7 +42,7 @@ export const getMoistureTime = async (req, res) => {
   }
 };
 
-export const getLatestPMSData = async (req, res) => {
+export const getLatestMWLdata = async (req, res) => {
   try {
     const { id } = req.query;
 
@@ -92,7 +92,7 @@ export const getLatestPMSData = async (req, res) => {
   }
 };
 
-export const addPMSdataThroughUrl = catchAsyncError(async (req, res) => {
+export const addMWLdataThroughUrl = catchAsyncError(async (req, res) => {
   const { moisture, waterLevel, LUX, id } = req.query;
 
   const data = await pmsModel.create({
