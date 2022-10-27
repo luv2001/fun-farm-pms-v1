@@ -26,6 +26,12 @@ const Led = ({ navigation }) => {
         >
           <Text style={{ color: "white" }}>LED Effects</Text>
         </Button>
+        <Button
+          style={styles.btn}
+          onPress={() => navigation.navigate("templedreplacement")}
+        >
+          <Text style={{ color: "white" }}> 5 colors </Text>
+        </Button>
       </View>
     </View>
   );

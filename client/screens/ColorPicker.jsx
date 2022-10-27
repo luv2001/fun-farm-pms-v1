@@ -1,10 +1,11 @@
-import { View, Text, StyleSheet, Button } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 import React from "react";
 
 import ColorPicker from "react-native-wheel-color-picker";
 
 import { useFormik } from "formik";
 import { Picker } from "@react-native-community/picker";
+import { Button } from "react-native-paper";
 
 const ColorPickerScreen = () => {
   const colors = [
@@ -14,6 +15,8 @@ const ColorPickerScreen = () => {
     { name: "rgb(123,32,33)", id: 4 },
     { name: "rgb(1312,22,33)", id: 5 },
   ];
+
+  const handleFog = () => {};
 
   const formik = useFormik({
     initialValues: { city_name: "" },
@@ -37,14 +40,14 @@ const ColorPickerScreen = () => {
 
   return (
     <View style={styles.container}>
-      <View style={{ width: "70%", height: "100%", marginTop: 100 }}>
+      <View style={{ width: "70%", height: "60%", marginTop: 100 }}>
         <ColorPicker
           style={{ flex: 1 }}
           thumbSize={20}
           onColorChangeComplete={(color) => handleColorAlert(color)}
         />
 
-        <View style={{ height: "50%", marginTop: 200 }}>
+        {/* <View style={{ height: "50%", marginTop: 200 }}>
           <Picker
             enabled={true}
             mode="dropdown"
@@ -66,7 +69,7 @@ const ColorPickerScreen = () => {
           <Button mode="contained" title="submit" onPress={formik.handleSubmit}>
             Enter
           </Button>
-        </View>
+        </View> */}
       </View>
     </View>
   );

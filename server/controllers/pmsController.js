@@ -96,9 +96,9 @@ export const addMWLdataThroughUrl = catchAsyncError(async (req, res) => {
   const { moisture, waterLevel, LUX, id } = req.query;
 
   const data = await pmsModel.create({
-    moisture,
-    waterLevel,
-    LUX,
+    moisture: moisture,
+    waterLevel: waterLevel,
+    LUX: LUX,
     user: id,
   });
 

@@ -2,173 +2,173 @@ import {
   View,
   Text,
   StyleSheet,
-  Button,
   Alert,
   TouchableOpacity,
   TextInput,
 } from "react-native";
 import React, { useEffect, useState } from "react";
+
+import { Button } from "react-native-paper";
 import Icon from "react-native-vector-icons/AntDesign";
 import PMSText from "../components/PMSText";
 
 import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { getLatestMWLData } from "../actions/MWLActions";
 
 const MWL = ({ navigation }) => {
-  // TODO : Impliment redux
+  // DONE : Impliment redux
   // TODO : Implement asyncStorage
+
+  const dispatch = useDispatch();
+
+  const { loading, MWLData, error } = useSelector((state) => state.mwl);
 
   // Logged In User Id
   const id = "62daccb734cfb32b26688bd6";
 
   const primaryColor = "#16a0b2";
-  //API Calles for PMS
 
-  // PMS Data
-  const [date, setDate] = useState("Loading ... ");
-  const [time, setTime] = useState("Loading ...");
-  const [moisture, setMoisture] = useState(0);
-  const [waterLevel, setWaterLevel] = useState(0);
-  const [LUX, setLUX] = useState(0);
-
-  const [inputMoisture, setInputMoisture] = useState(0);
-  const [inputWaterLevel, setInputWaterLevel] = useState(0);
-  const [inputLUX, setInputLUX] = useState(0);
-
-  // const IP = "192.168.0.5";
-  // const url = `http://${IP}:4000/api/v1/pms`; // Testing URL
-
-  const url = "https://fun-farmhouse.herokuapp.com/api/v1/pms"; //Testing URL :: Deployed Backend
-
-  const setValues = (data) => {
-    setDate(data[0]);
-    setTime(data[1]);
-    setMoisture(data[2]);
-    setWaterLevel(data[3]);
-    setLUX(data[4]);
-  };
-
-  const handleUpdateData = async () => {
-    const { data } = await axios.get(`${url}/getLatestPMSdata?id=${id}`);
-    setValues(data);
-  };
-
-  useEffect(() => {
-    handleUpdateData();
-  }, []);
-
-  setInterval(() => {
-    handleUpdateData();
-  }, 1000);
-
-  const handleUpdatePMSData = async () => {
-    const { data } = await axios.get(
-      `${url}/addPMSdataThroughUrl?moisture=${inputMoisture}&waterLevel=${inputWaterLevel}&LUX=${inputLUX}`
-    );
-  };
-
-  const pmsData = [
+  const MWLDataLoading = [
     {
       _id: 1,
       keyword: "Date",
-      value: date,
+      value: "Loading .. ",
     },
     {
       _id: 2,
       keyword: "Time",
-      value: time,
+      value: "Loading .. ",
     },
     {
       _id: 3,
       keyword: "Moisture",
-      value: moisture,
+      value: "Loading .. ",
     },
     {
       _id: 4,
       keyword: "waterLevel",
-      value: waterLevel,
+      value: "Loading .. ",
     },
     {
       _id: 5,
       keyword: "LUX",
-      value: LUX,
+      value: "Loading .. ",
+    },
+  ];
+
+  const MWLDataFeatched = [
+    {
+      _id: 1,
+      keyword: "Date",
+      value: MWLData ? MWLData[0] : "Loading ... ",
+    },
+    {
+      _id: 2,
+      keyword: "Time",
+      value: MWLData ? MWLData[1] : "Loading ... ",
+    },
+    {
+      _id: 3,
+      keyword: "Moisture",
+      value: MWLData ? MWLData[2] : "Loading ... ",
+    },
+    {
+      _id: 4,
+      keyword: "waterLevel",
+      value: MWLData ? MWLData[3] : "Loading ... ",
+    },
+    {
+      _id: 5,
+      keyword: "LUX",
+      value: MWLData ? MWLData[4] : "Loading ... ",
     },
   ];
 
   return (
-    <View style={styles.container}>
-      {pmsData.map((item, value) => {
-        return (
-          <PMSText key={item._id} keyword={item.keyword} value={item.value} />
-        );
-      })}
-      {/* <Button
-        color={primaryColor}
-        title="click"
-        onPress={() => handleUpdateData()}
-      />
-      <Text style={{ marginTop: 20 }}>
-        Real Time Update Will be implimented
-      </Text> */}
+    <>
+      {loading ? (
+        <>
+          <View style={styles.container}>
+            {MWLDataLoading.map((item, value) => {
+              return (
+                <PMSText
+                  key={item._id}
+                  keyword={item.keyword}
+                  value={item.value}
+                />
+              );
+            })}
 
-      {/* <View
-        style={{
-          flexDirection: "row",
-          justifyContent: "space-around",
-          alignSelf: "center",
-          alignItems: "center",
-          marginTop: 40,
-          marginBottom: 20,
-          width: "70%",
-        }}
-      >
-        <TextInput
-          // style={{ marginBottom: 30 }}
-          placeholder="moisture"
-          onChangeText={setInputMoisture}
-        ></TextInput>
-        <TextInput
-          // style={{ marginBottom: 30 }}
-          placeholder="water Level"
-          onChangeText={setInputWaterLevel}
-        ></TextInput>
-        <TextInput
-          // style={{ marginBottom: 30 }}
-          placeholder="LUX"
-          onChangeText={setInputLUX}
-        ></TextInput>
-      </View> */}
-      {/* <Button
-        color={primaryColor}
-        title="Update"
-        onPress={() => handleUpdatePMSData()}
-      /> */}
+            <View
+              style={{
+                flexDirection: "row",
+                justifyContent: "center",
+                marginTop: 400,
+              }}
+            >
+              <TouchableOpacity
+                style={{
+                  backgroundColor: "#ffffff",
+                  borderRadius: 20,
+                }}
+              >
+                <Icon
+                  name="areachart"
+                  size={35}
+                  color="#16a0b2"
+                  onPress={() => navigation.navigate("chartprectise")}
+                  style={{
+                    flexDirection: "row",
+                    justifyContent: "center",
+                  }}
+                />
+              </TouchableOpacity>
+            </View>
+          </View>
+        </>
+      ) : (
+        <>
+          <View style={styles.container}>
+            {MWLDataFeatched.map((item, value) => {
+              return (
+                <PMSText
+                  key={item._id}
+                  keyword={item.keyword}
+                  value={item.value}
+                />
+              );
+            })}
 
-      <View
-        style={{
-          flexDirection: "row",
-          justifyContent: "center",
-          marginTop: 450,
-        }}
-      >
-        <TouchableOpacity
-          style={{
-            backgroundColor: "#ffffff",
-            borderRadius: 20,
-          }}
-        >
-          <Icon
-            name="areachart"
-            size={35}
-            color="#16a0b2"
-            onPress={() => navigation.navigate("chartprectise")}
-            style={{
-              flexDirection: "row",
-              justifyContent: "center",
-            }}
-          />
-        </TouchableOpacity>
-      </View>
-    </View>
+            <View
+              style={{
+                flexDirection: "row",
+                justifyContent: "center",
+                marginTop: 400,
+              }}
+            >
+              <TouchableOpacity
+                style={{
+                  backgroundColor: "#ffffff",
+                  borderRadius: 20,
+                }}
+              >
+                <Icon
+                  name="areachart"
+                  size={35}
+                  color="#16a0b2"
+                  onPress={() => navigation.navigate("chartprectise")}
+                  style={{
+                    flexDirection: "row",
+                    justifyContent: "center",
+                  }}
+                />
+              </TouchableOpacity>
+            </View>
+          </View>
+        </>
+      )}
+    </>
   );
 };
 
@@ -178,7 +178,6 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     paddingTop: 210,
-    // justifyContent: "center",
   },
 
   input: {

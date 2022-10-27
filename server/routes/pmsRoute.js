@@ -2,7 +2,9 @@ import express from "express";
 import {
   addpHTDSdataThroughUrl,
   getAllpHTDSData,
+  getLatestpHTDSData,
 } from "../controllers/pHTdsController.js";
+
 import {
   addMWLdataThroughUrl,
   getAllMWLData,
@@ -17,5 +19,6 @@ router.route("/addMWLdataThroughUrl").get(addMWLdataThroughUrl);
 
 router.route("/getAllpHTDSData").get(getAllpHTDSData);
 router.route("/addpHTDSdataThroughUrl").post(addpHTDSdataThroughUrl);
+router.route("/getLatestpHTDSData").get(getLatestpHTDSData);
 
 export default router;

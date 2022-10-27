@@ -15,10 +15,10 @@ const NutritionButton = ({ text, v1, v2 }) => {
     >
       <Text style={styles.input}>{text}</Text>
       <Button style={styles.btn} onPress={handleFog}>
-        <Text style={{ color: "#fff" }}>{v1} ML</Text>
+        <Text style={{ color: "#fff" }}> ON </Text>
       </Button>
       <Button style={styles.btn} onPress={handleFog}>
-        <Text style={{ color: "#fff" }}>{v2} ML</Text>
+        <Text style={{ color: "#fff" }}> OFF </Text>
       </Button>
     </View>
   );

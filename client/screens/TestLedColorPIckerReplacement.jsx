@@ -1,68 +1,73 @@
-import { View, Text, StyleSheet, Dimensions, Switch } from "react-native";
-import React, { useState2 } from "react";
+import { View, Text, StyleSheet } from "react-native";
+import React from "react";
 import { Button } from "react-native-paper";
 import axios from "axios";
 
-const Fog = () => {
-  //responsiveness windwow height and width
-  const windowWidth = Dimensions.get("window").width;
-  const windowHeight = Dimensions.get("window").height;
-
+const TempLedColorReplacement = () => {
   //Testing Starts
 
   const IP = "192.168.4.1";
 
-  const handleLedEffects = (effect) => {
-    axios.post(`https://${IP}/${effect}`);
+  const handleEnable = () => {
+    axios.post(`https://${IP}/ron`);
+    // https://IP/ron
+  };
+
+  const handleDisable = () => {
+    //https://IP/roff
+    axios.post(`https://${IP}/roff`);
+  };
+  const handleColor = (color) => {
+    axios.post(`https://${IP}/${color}`);
   };
 
   //Testing Ends
 
-  //Toggle starts : Enable - Disanle
-  const [isEnabled, setIsEnabled] = useState(false);
-  const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
-  //Toggle ends
-
   return (
     <View style={styles.container}>
       <View style={{ marginTop: 100 }}>
-        <Text>LED Effects</Text>
+        <Text>COLORS</Text>
       </View>
-      <Switch
-        style={{ marginLeft: "50%" }}
-        trackColor={{ false: "#767577", true: "#81b0ff" }}
-        thumbColor={isEnabled ? "#f5dd4b" : "#f4f3f4"}
-        ios_backgroundColor="#3e3e3e"
-        onValueChange={toggleSwitch}
-        value={isEnabled}
-      />
+      <View
+        style={{
+          marginTop: 30,
+          flexDirection: "row",
+          justifyContent: "space-around",
+          width: "90%",
+        }}
+      >
+        <Button style={styles.btnEnable} onPress={handleEnable}>
+          <Text style={{ color: "#fff" }}>Enable</Text>
+        </Button>
+        <Button style={styles.btnEnable} onPress={handleDisable}>
+          <Text style={{ color: "#fff" }}>Disable</Text>
+        </Button>
+      </View>
       <View
         style={{
           marginTop: 100,
           justifyContent: "space-around",
           width: "100%",
           height: "50%",
-          // flexDirection: "row",
-          // flexWrap: "wrap",
         }}
       >
-        <Button
-          style={styles.btnFog}
-          onPress={() => handleLedEffects("rainbow")}
-        >
-          <Text style={{ color: "#fff" }}>Rainbow</Text>
+        <Button style={styles.btnFog} onPress={() => handleColor("color0")}>
+          <Text style={{ color: "#fff" }}>MAGENTA</Text>
         </Button>
-        <Button
-          style={styles.btnFog}
-          onPress={() => handleLedEffects("RGBLoop")}
-        >
-          <Text style={{ color: "#fff" }}>RGBLoop</Text>
+        <Button style={styles.btnFog} onPress={() => handleColor("color1")}>
+          <Text style={{ color: "#fff" }}>CYAN</Text>
         </Button>
-        <Button
-          style={styles.btnFog}
-          onPress={() => handleLedEffects("Runninglightsblue")}
-        >
-          <Text style={{ color: "#fff" }}>Running Blue</Text>
+        <Button style={styles.btnFog} onPress={() => handleColor("color2")}>
+          <Text style={{ color: "#fff" }}>PURPLE</Text>
+        </Button>
+        <Button style={styles.btnFog} onPress={() => handleColor("color3")}>
+          <Text style={{ color: "#fff" }}>Royal Blue</Text>
+        </Button>
+        <Button style={styles.btnFog} onPress={() => handleColor("color4")}>
+          <Text style={{ color: "#fff" }}>Saffron</Text>
+        </Button>
+        <Button style={styles.btnFog} onPress={() => handleColor("color5")}>
+          <Text style={{ color: "#fff" }}>FH Green</Text>
         </Button>
       </View>
       {/* <View
@@ -119,6 +124,19 @@ const styles = StyleSheet.create({
     borderRadius: 20,
   },
 
+  btnEnable: {
+    backgroundColor: "#16a0b2",
+    color: "white",
+    padding: 10,
+    alignItems: "center",
+    justifyContent: "center",
+    borderColor: "#202425",
+    alignSelf: "center",
+    width: "45%",
+    borderRadius: 20,
+    elevation: 100,
+  },
+
   btn: {
     backgroundColor: "#16a0b2",
     color: "white",
@@ -142,7 +160,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     borderColor: "#202425",
     alignSelf: "center",
-    width: 0.5 * Dimensions.get("window").width,
+    width: "40%",
     borderRadius: 20,
     elevation: 10,
   },
@@ -164,4 +182,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Fog;
+export default TempLedColorReplacement;

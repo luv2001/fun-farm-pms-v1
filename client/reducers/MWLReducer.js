@@ -1,10 +1,29 @@
-export const MWLReducer = (state = [], action) => {
+export const MWLReducer = (
+  state = {
+    MWLData: null,
+    loading: false,
+    error: false,
+  },
+  action
+) => {
   switch (action.type) {
-    case "GET_DATA":
-      return action.data;
+    case "MWL_STARTS":
+      return { ...state, loading: true, error: false };
 
-    case "SEND_DATA":
-      return state;
+    case "MWL_SUCCESS":
+      return {
+        ...state,
+        MWLData: action.payload,
+        loading: false,
+        error: false,
+      };
+
+    case "MWL_FAILS":
+      return {
+        ...state,
+        loading: false,
+        error: true,
+      };
 
     default:
       return state;
