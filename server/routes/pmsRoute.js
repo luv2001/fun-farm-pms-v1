@@ -18,7 +18,7 @@ router.route("/getLatestMWLdata").get(getLatestMWLdata);
 router.route("/addMWLdataThroughUrl").get(addMWLdataThroughUrl);
 
 router.route("/getAllpHTDSData").get(getAllpHTDSData);
-router.route("/addpHTDSdataThroughUrl").post(addpHTDSdataThroughUrl);
+router.route("/addpHTDSdataThroughUrl").get(addpHTDSdataThroughUrl);
 router.route("/getLatestpHTDSData").get(getLatestpHTDSData);
 
 export default router;

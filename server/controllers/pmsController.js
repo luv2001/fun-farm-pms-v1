@@ -81,6 +81,9 @@ export const getLatestMWLdata = async (req, res) => {
       latestData.moisture,
       latestData.waterLevel,
       latestData.LUX,
+      latestData.Wtemp,
+      latestData.Atemp,
+      latestData.Humidity,
     ];
 
     res.json(latestDataFormatted);
@@ -93,13 +96,16 @@ export const getLatestMWLdata = async (req, res) => {
 };
 
 export const addMWLdataThroughUrl = catchAsyncError(async (req, res) => {
-  const { moisture, waterLevel, LUX, id } = req.query;
+  const { moisture, waterLevel, LUX, id, Wtemp, Atemp, Humidity } = req.query;
 
   const data = await pmsModel.create({
     moisture: moisture,
     waterLevel: waterLevel,
     LUX: LUX,
     user: id,
+    Wtemp: Wtemp,
+    Atemp: Atemp,
+    Humidity: Humidity,
   });
 
   res.status(201).json(data);

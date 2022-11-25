@@ -1,5 +1,7 @@
 import mongoose from "mongoose";
 
+//Wtemp=100&Atemp=100&Humidity=100
+
 const pmsSchema = new mongoose.Schema({
   date: {
     type: Date,
@@ -20,6 +22,24 @@ const pmsSchema = new mongoose.Schema({
   },
 
   LUX: {
+    type: Number,
+    default: 0,
+  },
+
+  Wtemp: {
+    required: true,
+    type: Number,
+    default: 0,
+  },
+
+  Atemp: {
+    required: true,
+    type: Number,
+    default: 0,
+  },
+
+  Humidity: {
+    required: true,
     type: Number,
     default: 0,
   },
