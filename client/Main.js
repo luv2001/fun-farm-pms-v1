@@ -35,11 +35,6 @@ const Main = () => {
   //   dispatch(getLatestMWLData("62daccb734cfb32b26688bd6"));
   // }, 60000);
 
-  setInterval(() => {
-    dispatch(getLatestpHTDS("123412341234"));
-    dispatch(getLatestMWLData("123412341234"));
-  }, 60000);
-
   useEffect(() => {
     dispatch(getLatestpHTDS("123412341234"));
   }, [dispatch]);

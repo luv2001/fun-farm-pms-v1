@@ -84,14 +84,14 @@ const MWL = ({ navigation }) => {
     },
   ];
 
-  const handleRefresh = () => {};
+  const handleRefresh = () => {
+    dispatch(getLatestpHTDS("123412341234"));
+  };
 
   return (
     <>
-      <Button style={styles.refreshButton}>
-        <Text style={{ color: "white" }} onPress={() => handleRefresh}>
-          Refresh
-        </Text>
+      <Button style={styles.refreshButton} onPress={handleRefresh}>
+        <Text style={{ color: "white" }}>Refresh</Text>
       </Button>
       {loading ? (
         <View style={styles.container}>

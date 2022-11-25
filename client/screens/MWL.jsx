@@ -11,11 +11,10 @@ import React, { useEffect, useState } from "react";
 import { Button } from "react-native-paper";
 import Icon from "react-native-vector-icons/AntDesign";
 import PMSText from "../components/PMSText";
-import { getLatestMWLData } from "./actions/MWLActions";
+import { getLatestMWLData } from "../actions/MWLActions";
 
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import { getLatestMWLData } from "../actions/MWLActions";
 
 const MWL = ({ navigation }) => {
   // DONE : Impliment redux
@@ -92,10 +91,8 @@ const MWL = ({ navigation }) => {
 
   return (
     <>
-      <Button style={styles.refreshButton}>
-        <Text style={{ color: "white" }} onPress={() => handleRefresh}>
-          Refresh
-        </Text>
+      <Button style={styles.refreshButton} onPress={handleRefresh}>
+        <Text style={{ color: "white" }}>Refresh</Text>
       </Button>
       {loading ? (
         <>
