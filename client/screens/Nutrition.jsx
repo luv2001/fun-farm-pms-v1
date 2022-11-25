@@ -1,6 +1,15 @@
 import { View, Text, StyleSheet } from "react-native";
 import React from "react";
 import NutritionButton from "../components/NutritionButton";
+import { Button } from "react-native-paper";
+import axios from "axios";
+
+// Ip Testing
+const IP = "192.168.4.1";
+
+const handlePhRead = () => {
+  axios.post(`https://${IP}/phread`);
+};
 
 const Nutrition = () => {
   return (
@@ -11,6 +20,9 @@ const Nutrition = () => {
       <NutritionButton text="N" v1={20} v2={40} />
       <NutritionButton text="P" v1={20} v2={40} />
       <NutritionButton text="K" v1={20} v2={40} />
+      <Button style={styles.btnPhTds} onPress={() => handlePhRead}>
+        <Text style={{ color: "white" }}>pH read</Text>
+      </Button>
     </View>
   );
 };
@@ -44,6 +56,19 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     width: "100%",
     borderRadius: 20,
+  },
+
+  btnPhTds: {
+    backgroundColor: "#16a0b2",
+    color: "white",
+    padding: 5,
+    alignItems: "center",
+    justifyContent: "center",
+    borderColor: "#202425",
+    alignSelf: "center",
+    width: "50%",
+    borderRadius: 20,
+    marginTop: 40,
   },
 });
 

@@ -3,7 +3,13 @@ import React from "react";
 import { Button } from "react-native-paper";
 
 const NutritionButton = ({ text, v1, v2 }) => {
-  const handleFog = () => {};
+  const handleFogOn = () => {
+    axios.post(`https://${IP}/${text}on`);
+  };
+
+  const handleFogOff = () => {
+    axios.post(`https://${IP}/${text}off`);
+  };
   return (
     <View
       style={{
@@ -14,10 +20,10 @@ const NutritionButton = ({ text, v1, v2 }) => {
       }}
     >
       <Text style={styles.input}>{text}</Text>
-      <Button style={styles.btn} onPress={handleFog}>
+      <Button style={styles.btn} onPress={() => handleFogOn}>
         <Text style={{ color: "#fff" }}> ON </Text>
       </Button>
-      <Button style={styles.btn} onPress={handleFog}>
+      <Button style={styles.btn} onPress={() => handleFogOff}>
         <Text style={{ color: "#fff" }}> OFF </Text>
       </Button>
     </View>

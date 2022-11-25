@@ -84,8 +84,15 @@ const MWL = ({ navigation }) => {
     },
   ];
 
+  const handleRefresh = () => {};
+
   return (
     <>
+      <Button style={styles.refreshButton}>
+        <Text style={{ color: "white" }} onPress={() => handleRefresh}>
+          Refresh
+        </Text>
+      </Button>
       {loading ? (
         <View style={styles.container}>
           {pmsDataLoading.map((item, value) => {
@@ -172,7 +179,19 @@ const styles = StyleSheet.create({
     backgroundColor: "#ffffff",
     flex: 1,
     alignItems: "center",
-    paddingTop: 210,
+    paddingTop: 110,
+  },
+
+  refreshButton: {
+    backgroundColor: "#16a0b2",
+    color: "white",
+    padding: 5,
+    alignItems: "center",
+    justifyContent: "center",
+    alignSelf: "center",
+    width: "70%",
+    borderRadius: 20,
+    marginTop: 100,
   },
 
   input: {

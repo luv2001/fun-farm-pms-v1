@@ -11,6 +11,7 @@ import React, { useEffect, useState } from "react";
 import { Button } from "react-native-paper";
 import Icon from "react-native-vector-icons/AntDesign";
 import PMSText from "../components/PMSText";
+import { getLatestMWLData } from "./actions/MWLActions";
 
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
@@ -20,14 +21,14 @@ const MWL = ({ navigation }) => {
   // DONE : Impliment redux
   // TODO : Implement asyncStorage
 
-  const dispatch = useDispatch();
-
   const { loading, MWLData, error } = useSelector((state) => state.mwl);
 
   // Logged In User Id
   const id = "62daccb734cfb32b26688bd6";
 
   const primaryColor = "#16a0b2";
+
+  const dispatch = useDispatch();
 
   const MWLDataLoading = [
     {
@@ -85,8 +86,17 @@ const MWL = ({ navigation }) => {
     },
   ];
 
+  const handleRefresh = () => {
+    dispatch(getLatestMWLData("123412341234"));
+  };
+
   return (
     <>
+      <Button style={styles.refreshButton}>
+        <Text style={{ color: "white" }} onPress={() => handleRefresh}>
+          Refresh
+        </Text>
+      </Button>
       {loading ? (
         <>
           <View style={styles.container}>
@@ -177,7 +187,19 @@ const styles = StyleSheet.create({
     backgroundColor: "#ffffff",
     flex: 1,
     alignItems: "center",
-    paddingTop: 210,
+    paddingTop: 160,
+  },
+
+  refreshButton: {
+    backgroundColor: "#16a0b2",
+    color: "white",
+    padding: 5,
+    alignItems: "center",
+    justifyContent: "center",
+    alignSelf: "center",
+    width: "70%",
+    borderRadius: 20,
+    marginTop: 100,
   },
 
   input: {

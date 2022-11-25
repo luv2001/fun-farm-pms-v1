@@ -83,7 +83,7 @@ const Home = ({ navigation }) => {
       </View>
       <View
         style={{
-          paddingTop: windowHeight * 0.5,
+          paddingTop: 160,
           flexDirection: "row",
           width: "100%",
           justifyContent: "space-around",
