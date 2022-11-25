@@ -55,6 +55,21 @@ const MWL = ({ navigation }) => {
       keyword: "LUX",
       value: "Loading .. ",
     },
+    {
+      _id: 6,
+      keyword: "Wtemp",
+      value: "Loading .. ",
+    },
+    {
+      _id: 7,
+      keyword: "Atemp",
+      value: "Loading .. ",
+    },
+    {
+      _id: 8,
+      keyword: "Humidity",
+      value: "Loading .. ",
+    },
   ];
 
   const MWLDataFeatched = [
@@ -82,6 +97,21 @@ const MWL = ({ navigation }) => {
       _id: 5,
       keyword: "LUX",
       value: MWLData ? MWLData[4] : "Loading ... ",
+    },
+    {
+      _id: 6,
+      keyword: "Wtemp",
+      value: MWLData ? MWLData[5] : "Loading ... ",
+    },
+    {
+      _id: 7,
+      keyword: "Atemp",
+      value: MWLData ? MWLData[6] : "Loading ... ",
+    },
+    {
+      _id: 8,
+      keyword: "Humidity",
+      value: MWLData ? MWLData[7] : "Loading ... ",
     },
   ];
 
