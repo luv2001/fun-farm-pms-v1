@@ -40,10 +40,6 @@ const Fog = () => {
     axios.post(`https://${IP}/roff`);
   };
 
-  const handleFog = (num) => {
-    axios.post(`https://${IP}/cycle${num}`);
-  };
-
   //fogOn fogOff
 
   const handleFogOn = () => {
@@ -52,6 +48,10 @@ const Fog = () => {
 
   const handleFogOff = () => {
     axios.post(`https://${IP}/fogOff`);
+  };
+
+  const handleFog = (num) => {
+    axios.post(`https://${IP}/cycle${num}`);
   };
 
   //Testing Ends
@@ -122,7 +122,7 @@ const Fog = () => {
       <View
         style={{
           marginTop: 10,
-          marginRight : "40%",
+          marginRight: "40%",
           flexDirection: "row",
           justifyContent: "space-around",
           width: "80%",
@@ -151,7 +151,7 @@ const Fog = () => {
       <View
         style={{
           marginTop: 30,
-          marginRight : "40%",
+          marginRight: "40%",
           flexDirection: "row",
           justifyContent: "space-around",
           width: "80%",
