@@ -20,7 +20,7 @@ const Nutrition = () => {
       <NutritionButton text="n" v1={20} v2={40} />
       <NutritionButton text="p" v1={20} v2={40} />
       <NutritionButton text="k" v1={20} v2={40} />
-      <Button style={styles.btnPhTds} onPress={() => handlePhRead}>
+      <Button style={styles.btnPhTds} onPress={handlePhRead}>
         <Text style={{ color: "white" }}>pH read</Text>
       </Button>
     </View>

@@ -1,17 +1,22 @@
 import { View, Text, StyleSheet } from "react-native";
 import React from "react";
 import { Button } from "react-native-paper";
+import axios from "axios";
+import { FancyAlert } from "react-native-expo-fancy-alerts";
 
 const NutritionButton = ({ text, v1, v2 }) => {
   const IP = "192.168.4.1";
 
   const handleFogOn = () => {
+    console.log(`https://${IP}/${text}on`);
     axios.post(`https://${IP}/${text}on`);
   };
 
   const handleFogOff = () => {
+    console.log(`https://${IP}/${text}off`);
     axios.post(`https://${IP}/${text}off`);
   };
+
   return (
     <View
       style={{
@@ -22,10 +27,10 @@ const NutritionButton = ({ text, v1, v2 }) => {
       }}
     >
       <Text style={styles.input}>{text}</Text>
-      <Button style={styles.btn} onPress={() => handleFogOn}>
+      <Button style={styles.btn} onPress={handleFogOn}>
         <Text style={{ color: "#fff" }}> ON </Text>
       </Button>
-      <Button style={styles.btn} onPress={() => handleFogOff}>
+      <Button style={styles.btn} onPress={handleFogOff}>
         <Text style={{ color: "#fff" }}> OFF </Text>
       </Button>
     </View>
