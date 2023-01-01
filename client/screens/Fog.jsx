@@ -2,6 +2,8 @@ import { View, Text, StyleSheet } from "react-native";
 import React from "react";
 import axios from "axios";
 import { Button } from "react-native-paper";
+import { useDispatch } from "react-redux";
+import { IPfuncitons } from "../api/IPRequest";
 
 const Fog = () => {
   // // Testing Urls IP
@@ -28,30 +30,34 @@ const Fog = () => {
 
   //Testing Starts
 
+  const dispatch = useDispatch();
+
   const IP = "192.168.4.1";
 
-  const handleEnable = () => {
-    axios.post(`https://${IP}/ron`);
-    // https://IP/ron
+  const handleEnable = async () => {
+    dispatch(IPfuncitons("automate"));
   };
 
-  const handleDisable = () => {
-    //https://IP/roff
-    axios.post(`https://${IP}/roff`);
+  const handleDisable = async () => {
+    dispatch(IPfuncitons("manual"));
   };
 
   //fogOn fogOff
 
-  const handleFogOn = () => {
-    axios.post(`https://${IP}/fogOn`);
+  const handleFogOn = async () => {
+    dispatch(IPfuncitons("fogOn"));
   };
 
-  const handleFogOff = () => {
-    axios.post(`https://${IP}/fogOff`);
+  const handleFogOff = async () => {
+    dispatch(IPfuncitons("fogOff"));
   };
 
-  const handleFog = (num) => {
-    axios.post(`https://${IP}/cycle${num}`);
+  const handleFog = async (num) => {
+    dispatch(IPfuncitons(`cycle${num}`));
+  };
+
+  const handleCycle = async () => {
+    dispatch(IPfuncitons("cycle10s"));
   };
 
   //Testing Ends
@@ -84,7 +90,7 @@ const Fog = () => {
         <Button style={styles.btn} onPress={() => handleFog(6)}>
           <Text style={{ color: "#fff" }}>6 min</Text>
         </Button>
-        <Button style={styles.btn} onPress={handleFog}>
+        <Button style={styles.btn} onPress={() => handleFog(8)}>
           <Text style={{ color: "#fff" }}>8 min</Text>
         </Button>
       </View>
@@ -96,10 +102,10 @@ const Fog = () => {
           width: "80%",
         }}
       >
-        <Button style={styles.btn} onPress={handleFog}>
+        <Button style={styles.btn} onPress={() => handleFog(10)}>
           <Text style={{ color: "#fff" }}>10 min</Text>
         </Button>
-        <Button style={styles.btn} onPress={handleFog}>
+        <Button style={styles.btn} onPress={() => handleFog(12)}>
           <Text style={{ color: "#fff" }}>12 min</Text>
         </Button>
       </View>
@@ -111,10 +117,10 @@ const Fog = () => {
           width: "80%",
         }}
       >
-        <Button style={styles.btn} onPress={handleFog}>
+        <Button style={styles.btn} onPress={() => handleFog(14)}>
           <Text style={{ color: "#fff" }}>14 min</Text>
         </Button>
-        <Button style={styles.btn} onPress={handleFog}>
+        <Button style={styles.btn} onPress={() => handleFog(16)}>
           <Text style={{ color: "#fff" }}>16 min</Text>
         </Button>
       </View>
@@ -128,7 +134,7 @@ const Fog = () => {
           width: "80%",
         }}
       >
-        <Button style={styles.btn} onPress={handleFog}>
+        <Button style={styles.btn} onPress={() => handleFog(18)}>
           <Text style={{ color: "#fff" }}>18 min</Text>
         </Button>
       </View>
@@ -157,7 +163,7 @@ const Fog = () => {
           width: "80%",
         }}
       >
-        <Button style={styles.btn} onPress={handleFog}>
+        <Button style={styles.btn} onPress={handleCycle}>
           <Text style={{ color: "#fff" }}>10s</Text>
         </Button>
       </View>

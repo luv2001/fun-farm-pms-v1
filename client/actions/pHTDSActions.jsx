@@ -5,7 +5,8 @@ export const getLatestpHTDS = (id) => async (dispatch) => {
   try {
     const { data } = await pHTDSAPI.getLatestpHTDSData(id);
 
-    console.log(data);
+    // console.log("I am here ... ");
+    // console.log(data);
 
     dispatch({ type: "pHTDS_SUCCESS", payload: data });
   } catch (error) {

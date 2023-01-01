@@ -4,24 +4,35 @@ import { Button } from "react-native-paper";
 import axios from "axios";
 
 import Icon from "react-native-vector-icons/Entypo";
+import { useDispatch } from "react-redux";
+import { IPfuncitons } from "../api/IPRequest";
 
 const RotataryControl = () => {
   //Testing Starts
+
+  const dispatch = useDispatch();
 
   const [isEnabled, setIsEnabled] = useState(false);
   const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
 
   const IP = "192.168.4.1";
 
-  const handleEnable = () => {
-    axios.post(`https://${IP}/ron`);
-    // https://IP/ron
+  const handleClock = async () => {
+    dispatch(IPfuncitons("clockwise"));
   };
 
-  const handleDisable = () => {
-    //https://IP/roff
-    axios.post(`https://${IP}/roff`);
+  const handleAntiClock = async () => {
+    dispatch(IPfuncitons("anticlockwise"));
   };
+
+  const handleEnable = async () => {
+    dispatch(IPfuncitons("Rstart"));
+  };
+
+  const handleDisable = async () => {
+    dispatch(IPfuncitons("Rstop"));
+  };
+
   const handleColor = (color) => {
     axios.post(`https://${IP}/${color}`);
   };
@@ -34,14 +45,14 @@ const RotataryControl = () => {
         <Text style={{ fontSize: 40 }}>Rotatary Control</Text>
       </View>
       <Text style={{ marginLeft: "50%" }}>Disable Enable</Text>
-      <Switch
+      {/* <Switch
         style={{ marginLeft: "50%" }}
         trackColor={{ false: "#767577", true: "#81b0ff" }}
         thumbColor={isEnabled ? "#f5dd4b" : "#f4f3f4"}
         ios_backgroundColor="#3e3e3e"
         onValueChange={toggleSwitch}
         value={isEnabled}
-      />
+      /> */}
       <View
         style={{
           marginTop: 30,
@@ -51,9 +62,16 @@ const RotataryControl = () => {
         }}
       >
         <Button style={styles.btnEnable} onPress={handleEnable}>
-          <Text style={{ color: "#fff", fontSize: 20 }}>Clock</Text>
+          <Text style={{ color: "#fff", fontSize: 20 }}>Enable</Text>
         </Button>
         <Button style={styles.btnEnable} onPress={handleDisable}>
+          <Text style={{ color: "#fff", fontSize: 20 }}>Diable</Text>
+        </Button>
+
+        <Button style={styles.btnEnable} onPress={handleClock}>
+          <Text style={{ color: "#fff", fontSize: 20 }}>Clock</Text>
+        </Button>
+        <Button style={styles.btnEnable} onPress={handleAntiClock}>
           <Text style={{ color: "#fff", fontSize: 20 }}>anti</Text>
         </Button>
       </View>

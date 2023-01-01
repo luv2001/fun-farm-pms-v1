@@ -11,6 +11,10 @@ app.use(cors());
 app.use(express.json());
 app.use(cookieParser());
 
+app.get((req, res) => {
+  res.send("Hemlooo");
+});
+
 app.use("/api/v1/pms", pmsRoute);
 app.use("/api/v1/user", userRoute);
 

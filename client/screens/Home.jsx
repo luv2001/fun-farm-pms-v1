@@ -16,22 +16,28 @@ import Icon from "react-native-vector-icons/Entypo";
 
 import { Dialog } from "react-native-paper";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useDispatch } from "react-redux";
+import { updateMWLData } from "../actions/MWLActions";
+import { getLatestpHTDS } from "../actions/pHTDSActions";
+import { IPfuncitons } from "../api/IPRequest";
 
 const Home = ({ navigation }) => {
   // Window size
   const windowWidth = Dimensions.get("window").width;
   const windowHeight = Dimensions.get("window").height;
 
+  const dispatch = useDispatch();
+
   // Testing Urls IP
 
   const IP = "192.168.4.1";
 
-  const handleAuto = () => {
-    axios.post(`https://${IP}/automate`);
+  const handleAuto = async () => {
+    dispatch(IPfuncitons("Automode"));
   };
 
-  const handleManual = () => {
-    axios.post(`https://${IP}/manual`);
+  const handleManual = async () => {
+    dispatch(IPfuncitons("manualmode"));
   };
 
   //Testing Ends
@@ -46,6 +52,14 @@ const Home = ({ navigation }) => {
     const user = await AsyncStorage.getItem("user");
     const userObject = JSON.parse(user);
     setName(userObject.name);
+  };
+
+  //http://ip/kon
+
+  //http://beige-gharial-garb.cyclic.app/api/v1/pms/addMWLdataThroughUrl?moisture=90&waterLevel=-2&LUX=-2&id=123412341234&Wtemp=-1&Atemp=-1&Humidity=-1
+
+  const handlekON = async () => {
+    dispatch(IPfuncitons("kon"));
   };
 
   useEffect(() => {
@@ -68,6 +82,12 @@ const Home = ({ navigation }) => {
         <Button style={styles.btnEnable} onPress={handleManual}>
           <Text style={{ color: "#fff" }}>Manual</Text>
         </Button>
+        <Button style={styles.btnEnable} onPress={handlekON}>
+          <Text style={{ color: "#fff" }}>kON</Text>
+        </Button>
+        {/* <Button style={styles.btnEnable} onPress={handlekONPost}>
+          <Text style={{ color: "#fff" }}>kON post</Text>
+        </Button> */}
       </View>
       <View style={styles.title}>
         <Text style={{ fontSize: 20 }}>User</Text>

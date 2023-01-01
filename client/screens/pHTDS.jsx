@@ -57,30 +57,26 @@ const MWL = ({ navigation }) => {
     },
   ];
 
-  // const handleLatestData = () => {
-  //   dispatch(getLatestpHTDS("62daccb734cfb32b26688bd6"));
-  // };
-
   const pmsData = [
     {
       _id: 1,
       keyword: "Date",
-      value: pHTDSData[0],
+      value: pHTDSData ? pHTDSData[0] : "Loading ... ",
     },
     {
       _id: 2,
       keyword: "Time",
-      value: pHTDSData[1],
+      value: pHTDSData ? pHTDSData[1] : "Loading ... ",
     },
     {
       _id: 3,
       keyword: "pH",
-      value: pHTDSData[2],
+      value: pHTDSData ? pHTDSData[2] : "Loading ... ",
     },
     {
       _id: 4,
       keyword: "TDS",
-      value: pHTDSData[3],
+      value: pHTDSData ? pHTDSData[3] : "Loading ... ",
     },
   ];
 
@@ -132,43 +128,45 @@ const MWL = ({ navigation }) => {
           </View>
         </View>
       ) : (
-        <View style={styles.container}>
-          {pmsData.map((item, value) => {
-            return (
-              <PMSText
-                key={item._id}
-                keyword={item.keyword}
-                value={item.value}
-              />
-            );
-          })}
+        <>
+          <View style={styles.container}>
+            {pmsData.map((item, value) => {
+              return (
+                <PMSText
+                  key={item._id}
+                  keyword={item.keyword}
+                  value={item.value}
+                />
+              );
+            })}
 
-          <View
-            style={{
-              flexDirection: "row",
-              justifyContent: "center",
-              marginTop: 420,
-            }}
-          >
-            <TouchableOpacity
+            <View
               style={{
-                backgroundColor: "#ffffff",
-                borderRadius: 20,
+                flexDirection: "row",
+                justifyContent: "center",
+                marginTop: 420,
               }}
             >
-              <Icon
-                name="areachart"
-                size={35}
-                color="#16a0b2"
-                onPress={() => navigation.navigate("chartprectise")}
+              <TouchableOpacity
                 style={{
-                  flexDirection: "row",
-                  justifyContent: "center",
+                  backgroundColor: "#ffffff",
+                  borderRadius: 20,
                 }}
-              />
-            </TouchableOpacity>
+              >
+                <Icon
+                  name="areachart"
+                  size={35}
+                  color="#16a0b2"
+                  onPress={() => navigation.navigate("chartprectise")}
+                  style={{
+                    flexDirection: "row",
+                    justifyContent: "center",
+                  }}
+                />
+              </TouchableOpacity>
+            </View>
           </View>
-        </View>
+        </>
       )}
     </>
   );

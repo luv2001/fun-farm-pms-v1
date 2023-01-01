@@ -3,18 +3,18 @@ import React from "react";
 import { Button } from "react-native-paper";
 import axios from "axios";
 import { FancyAlert } from "react-native-expo-fancy-alerts";
+import { useDispatch } from "react-redux";
+import { IPfuncitons } from "../api/IPRequest";
 
 const NutritionButton = ({ text, v1, v2 }) => {
-  const IP = "192.168.4.1";
+  const dispatch = useDispatch();
 
-  const handleFogOn = () => {
-    console.log(`https://${IP}/${text}on`);
-    axios.post(`https://${IP}/${text}on`);
+  const handleFogOn = async () => {
+    dispatch(IPfuncitons(`${text}on`));
   };
 
-  const handleFogOff = () => {
-    console.log(`https://${IP}/${text}off`);
-    axios.post(`https://${IP}/${text}off`);
+  const handleFogOff = async () => {
+    dispatch(IPfuncitons(`${text}off`));
   };
 
   return (

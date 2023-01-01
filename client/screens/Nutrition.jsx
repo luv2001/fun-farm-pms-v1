@@ -3,15 +3,19 @@ import React from "react";
 import NutritionButton from "../components/NutritionButton";
 import { Button } from "react-native-paper";
 import axios from "axios";
+import { useDispatch } from "react-redux";
+import { IPfuncitons } from "../api/IPRequest";
 
 // Ip Testing
 const IP = "192.168.4.1";
 
-const handlePhRead = () => {
-  axios.post(`https://${IP}/phread`);
-};
-
 const Nutrition = () => {
+  const dispatch = useDispatch();
+
+  const handlePhRead = async () => {
+    dispatch(IPfuncitons("phread"));
+  };
+
   return (
     <View style={styles.container}>
       <Text style={{ marginTop: 100, fontSize: 30, marginBottom: 40 }}>

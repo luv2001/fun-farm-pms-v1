@@ -14,6 +14,7 @@ const Led = ({ navigation }) => {
           width: "100%",
         }}
       >
+        {/* hiding MWL and phTDS data temporary ! */}
         <Button style={styles.btn} onPress={() => navigation.navigate("mwl")}>
           <Text style={{ color: "white" }}>MWL</Text>
         </Button>
